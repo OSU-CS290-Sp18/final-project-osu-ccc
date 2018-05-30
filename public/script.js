@@ -364,7 +364,7 @@ document.getElementById("btc-star").onclick = btc_star_clicked;
 
 
 //////////////////Search for certain coin////////////////////////
-  $('.search-button').click(function(){
+  $('#search').on('keyup', function(){
     var coinName;
     var input = $('#search').val().toLowerCase();
     $('.coin-full').each(function(){
@@ -372,9 +372,10 @@ document.getElementById("btc-star").onclick = btc_star_clicked;
       if(!(coinName.includes(input))){//if it doesnt contain the string then hide the coin tile
         $(this).parent().parent().hide();
       }
+      else{ //it does have contain the string
+        $(this).parent().parent().show();
+      }
     });
-
-    $('#search').val(''); //reset it
   });
 
 }/////DOCUMENT READY FUNCTION END
