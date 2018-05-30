@@ -84,7 +84,7 @@ body{
 	.search-button{
 		position: relative;
 		left: 118%;
-		top: -94%;
+		top: -91%;
 		height: 29px;
 		width: 30px;
 	}
@@ -317,7 +317,7 @@ a:visited,  a:link {
 	width: 33px;
 }
 
-#btc-star,#eth-star,#xrp-star {
+#btc-star, #eth-star, #xrp-star {
 	float:right;
 	padding-right: 10px;
 	background:none;
@@ -330,3 +330,20 @@ a:visited,  a:link {
 .fa-star:hover {
 	cursor:pointer;
 }
+
+.error-container {
+  margin-top: 50px;
+  margin-left: 35%;
+  text-align: center;
+}
+	.error-container h2 {
+	  margin: 10px 0;
+	  font-size: 106px;
+	  font-weight: 100;
+	}
+
+	.error-container h3 {
+	  margin: 10px 0;
+	  font-size: 46px;
+	  font-weight: 400;
+	}
