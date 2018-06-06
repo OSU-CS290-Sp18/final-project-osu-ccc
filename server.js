@@ -16,18 +16,11 @@
 
 	app.use(express.static('public'));
 
-	app.get('/test',function(req,res,next){
-		console.log("in test");
+	app.get('/alts',function(req,res,next){
+		console.log("loading alt coins..");
 
 		res.status(200).render('coincaller', {
 			 coin_array: coinDataArray
-			// coinFullName: "Icon",
-			// coinName: "icx",
-			// currentPrice: 2.56,
-			// priceChange: -9.51,
-			// marketCap:990015027,
-			// twentyFourHrVolume:33665500,
-			// dataset:[2.79,2.75,2.70,2.74,2.71,2.66,2.81,2.67,2.55,2.44,2.75,2.74,2.69,2.78,2.65,2.56,2.45,2.54,2.76,2.96,2.45,2.46,2.55,2.56]
 
 		});
 
