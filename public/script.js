@@ -378,7 +378,33 @@ document.getElementById("btc-star").onclick = btc_star_clicked;
     });
   });
 
-}/////DOCUMENT READY FUNCTION END
+
+//////////////NAVBAR////////////////////////////////////////////////
+$('#nav2').click(function(){
+	window.location.replace(window.location+"alts");
+});
+
 
 
 ////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}/////DOCUMENT READY FUNCTION END
+
