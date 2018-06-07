@@ -3,10 +3,20 @@ $(document).ready(function(){////////////////
 const hoursPerDay = 24;
 var i;
 
-var btc = document.getElementById("btcChart").getContext('2d');
-var eth = document.getElementById("ethChart").getContext('2d');
-var xrp = document.getElementById("xrpChart").getContext('2d');
+var btc = document.getElementById("btcChart");
+if(btc){
+	btc.getContext('2d');
+}
 
+var eth = document.getElementById("ethChart");
+if(eth){
+	eth.getContext('2d');
+}
+
+var xrp = document.getElementById("xrpChart");
+if(xrp){
+	xrp.getContext('2d');
+}
 
 var btcDataset = [];
 var ethDataset = [];
@@ -42,118 +52,123 @@ timeOneDay();
 /////////////////////SET UP 1 DAY CHARTS//////////////////////////////////////////////////
 
 ////////////////////// B I T C O I N ////////////////////////////////////////////////////
-$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=25', function(btc24Hour){
-    for(i =0; i < hoursPerDay+1; i++){
-        btcDataset.push(btc24Hour.Data[i].close); //fill BTC dataset with latest price action from last 24 hours
-    }
-    var btcChart = new Chart(btc, {
-        type: 'line',
-        data: {
-            labels: time,
-            datasets: [{
-                label: 'Price in USD',
-                data: btcDataset,
-                backgroundColor: [
-                    'rgba(76, 175, 80, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(0, 100, 0, 1)'
-                ],
-                borderWidth: 1,
-                pointHoverBackgroundColor: 'rgb(255, 99, 132)'
-            }]
-        },
+if(btc){
+	$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=USD&limit=25', function(btc24Hour){
+	    for(i =0; i < hoursPerDay+1; i++){
+	        btcDataset.push(btc24Hour.Data[i].close); //fill BTC dataset with latest price action from last 24 hours
+	    }
+	    var btcChart = new Chart(btc, {
+	        type: 'line',
+	        data: {
+	            labels: time,
+	            datasets: [{
+	                label: 'Price in USD',
+	                data: btcDataset,
+	                backgroundColor: [
+	                    'rgba(76, 175, 80, 0.2)'
+	                ],
+	                borderColor: [
+	                    'rgba(0, 100, 0, 1)'
+	                ],
+	                borderWidth: 1,
+	                pointHoverBackgroundColor: 'rgb(255, 99, 132)'
+	            }]
+	        },
 
-        options: {
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            elements:{
-                 point:{
-                     radius: 0
-                 }
-             },
-            maintainAspectRatio: false
-        }
-    });
-});
+	        options: {
+	            tooltips: {
+	                mode: 'index',
+	                intersect: false
+	            },
+	            elements:{
+	                 point:{
+	                     radius: 0
+	                 }
+	             },
+	            maintainAspectRatio: false
+	        }
+	    });
+	});
+}
 ////
 //////////////////////// E T H E R E U M ////////////////////////////////////////////////////////////////
-$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=25', function(eth24Hour){
-    for(i =0; i < hoursPerDay+1; i++){
-        ethDataset.push(eth24Hour.Data[i].close); //fill ETH dataset with latest price action from last 24 hours
-    }
-    var ethChart = new Chart(eth, {
-        type: 'line',
-        data: {
-            labels: time,
-            datasets: [{
-                label: 'Price in USD',
-                data: ethDataset,
-                backgroundColor: [
-                    'rgba(76, 175, 80, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(0, 100, 0, 1)'
-                ],
-                borderWidth: 1,
-                pointHoverBackgroundColor: 'rgb(255, 99, 132)' //pink dot
-            }]
-        },
+if(eth){	
+	$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=25', function(eth24Hour){
+	    for(i =0; i < hoursPerDay+1; i++){
+	        ethDataset.push(eth24Hour.Data[i].close); //fill ETH dataset with latest price action from last 24 hours
+	    }
+	    var ethChart = new Chart(eth, {
+	        type: 'line',
+	        data: {
+	            labels: time,
+	            datasets: [{
+	                label: 'Price in USD',
+	                data: ethDataset,
+	                backgroundColor: [
+	                    'rgba(76, 175, 80, 0.2)'
+	                ],
+	                borderColor: [
+	                    'rgba(0, 100, 0, 1)'
+	                ],
+	                borderWidth: 1,
+	                pointHoverBackgroundColor: 'rgb(255, 99, 132)' //pink dot
+	            }]
+	        },
 
-       options: {
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            elements:{
-                 point:{
-                     radius: 0
-                 }
-             },
-            maintainAspectRatio: false
-        }
-    });
-});
+	       options: {
+	            tooltips: {
+	                mode: 'index',
+	                intersect: false
+	            },
+	            elements:{
+	                 point:{
+	                     radius: 0
+	                 }
+	             },
+	            maintainAspectRatio: false
+	        }
+	    });
+	});
+}
 /////////////////////////// R I P P L E /////////////////////////////////////////////////////////////
-$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=XRP&tsym=USD&limit=25', function(xrp24Hour){
-    for(i =0; i < hoursPerDay+1; i++){
-        xrpDataset.push(xrp24Hour.Data[i].close); //fill XRP dataset with latest price action from last 24 hours
-    }
-    var xrpChart = new Chart(xrp, {
-        type: 'line',
-        data: {
-            labels: time,
-            datasets: [{
-                label: 'Price in USD',
-                data: xrpDataset,
-                backgroundColor: [
-                    'rgba(76, 175, 80, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(0, 100, 0, 1)'
-                ],
-                borderWidth: 1,
-                pointHoverBackgroundColor: 'rgb(255, 99, 132)'
-            }]
-        },
+if(xrp){
+	$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=XRP&tsym=USD&limit=25', function(xrp24Hour){
+	    for(i =0; i < hoursPerDay+1; i++){
+	        xrpDataset.push(xrp24Hour.Data[i].close); //fill XRP dataset with latest price action from last 24 hours
+	    }
+	    var xrpChart = new Chart(xrp, {
+	        type: 'line',
+	        data: {
+	            labels: time,
+	            datasets: [{
+	                label: 'Price in USD',
+	                data: xrpDataset,
+	                backgroundColor: [
+	                    'rgba(76, 175, 80, 0.2)'
+	                ],
+	                borderColor: [
+	                    'rgba(0, 100, 0, 1)'
+	                ],
+	                borderWidth: 1,
+	                pointHoverBackgroundColor: 'rgb(255, 99, 132)'
+	            }]
+	        },
 
-        options: {
-            tooltips: {
-                mode: 'index',
-                intersect: false
-            },
-            elements:{
-                 point:{
-                     radius: 0
-                 }
-             },
-            maintainAspectRatio: false
-        }
-    });
-});
-
+	        options: {
+	            tooltips: {
+	                mode: 'index',
+	                intersect: false
+	            },
+	            elements:{
+	                 point:{
+	                     radius: 0
+	                 }
+	             },
+	            maintainAspectRatio: false
+	        }
+	    });
+	});
+}
 ///////////////UPDATE PRICE CHART//////////////////////////////////////////////////////////////////////////////
 function updateChartSecond() {
 	btcDataset.shift(); //remove the first value (oldest value not needed)
@@ -215,7 +230,9 @@ function UpdateTwentyFourHrChange(){
         }
     }
 }
-setInterval(UpdateTwentyFourHrChange, 505); //do this every 1.x second
+	if(btc && eth && xrp){
+		setInterval(UpdateTwentyFourHrChange, 505); //do this every 1.x second
+	}
 
 ///////////UPDATE MARKET CAP///////////////////////////////////////////////////////////////////////////////////////
 function updateMarketCap(){
@@ -314,7 +331,9 @@ function btc_star_clicked(){
     }
 
 }
-document.getElementById("btc-star").onclick = btc_star_clicked;
+	if(document.getElementById("ethChart")){
+		document.getElementById("btc-star").onclick = btc_star_clicked;
+	}
 
  //////////////////ETH///////////////////////////////////////
  // window.onload = function(){
@@ -335,8 +354,10 @@ document.getElementById("btc-star").onclick = btc_star_clicked;
      eth_child[0].classList.add('far');
      eth_child[0].classList.remove('clicked');
    }
- }
- document.getElementById("eth-star").onclick = eth_star_clicked;
+ }		
+ 	if(document.getElementById("btcChart")){
+ 		document.getElementById("eth-star").onclick = eth_star_clicked;
+ 	}
  // }
 
  /////////////////////////XRP///////////////////////////////////////
@@ -359,7 +380,9 @@ document.getElementById("btc-star").onclick = btc_star_clicked;
      xrp_child[0].classList.remove('clicked');
    }
  }
- document.getElementById("xrp-star").onclick = xrp_star_clicked;
+ 	if(document.getElementById("xrpChart")){
+ 		document.getElementById("xrp-star").onclick = xrp_star_clicked;
+ 	}
  // }
 
 
@@ -380,6 +403,10 @@ document.getElementById("btc-star").onclick = btc_star_clicked;
 
 
 //////////////NAVBAR////////////////////////////////////////////////
+$('#nav1').click(function(){
+	window.location.replace(window.location);
+});
+
 $('#nav2').click(function(){
 	window.location.replace(window.location+"alts");
 });
