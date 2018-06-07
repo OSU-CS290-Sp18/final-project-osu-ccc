@@ -404,25 +404,16 @@ function btc_star_clicked(){
 
 //////////////NAVBAR////////////////////////////////////////////////
 $('#nav1').click(function(){
-	window.location.replace(window.location);
+	window.location.replace("/");
 });
 
 $('#nav2').click(function(){
-	window.location.replace(window.location+"alts");
+	window.location.replace("alts");
 });
 
 
 
 ////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
 
 
 
