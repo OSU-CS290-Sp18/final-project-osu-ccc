@@ -93,7 +93,8 @@ if(btc){
 ////
 //////////////////////// E T H E R E U M ////////////////////////////////////////////////////////////////
 if(eth){	
-	$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=ETH&tsym=USD&limit=25', function(eth24Hour){
+	var coinName = "ETH"; //test to see if templated API works
+	$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=' + coinName + '&tsym=USD&limit=25', function(eth24Hour){
 	    for(i =0; i < hoursPerDay+1; i++){
 	        ethDataset.push(eth24Hour.Data[i].close); //fill ETH dataset with latest price action from last 24 hours
 	    }
@@ -411,6 +412,9 @@ $('#nav2').click(function(){
 	window.location.replace("alts");
 });
 
+$('#nav3').click(function(){
+	window.location.replace("addCoin");
+});
 
 
 ////////////////////////////////////////////////////////////////////
