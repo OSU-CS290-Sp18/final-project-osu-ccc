@@ -15,9 +15,9 @@
 	app.set('view engine', 'handlebars');
 
 	var port = process.env.PORT || 3000;
-	var info = [];
+	var blank = [];
 	app.get('/', function (req, res) {
-	  res.status(200).render('index', {data: info});
+	  res.status(200).render('index', {data: blank});
 	});
 
 	app.use(express.static('public'));
@@ -35,6 +35,10 @@
 				});
 			}
 		})
+	});
+
+	app.get('/addCoin', function (req, res, next) {
+		res.status(200).render('addCoin', {data: blank});
 	});
 
 	app.get('*', function (req, res) {

@@ -340,8 +340,8 @@ function btc_star_clicked(){
  // window.onload = function(){
  function eth_star_clicked(){
 
-     var eth_star = document.getElementById("eth-star");
-     var eth_child = eth_star.children;
+    var eth_star = document.getElementById("eth-star");
+    var eth_child = eth_star.children;
     var already_starred_eth = eth_child[0].classList.contains('clicked');
 
     if(already_starred_eth === false){
@@ -417,7 +417,86 @@ $('#nav3').click(function(){
 });
 
 
-////////////////////////////////////////////////////////////////////
+//////////////////HANDLE ADD COIN//////////////////////////////////////////////////
+
+$('#submit-coin-input').click(function(){
+	var i;
+	var dataObj = {          //THIS IS THE OBJECT THAT WILL BE SENT TO SERVER
+		coinFullName: "Ethereum Classic",
+		coinName: "ETC",
+		currentPrice: "15.30",
+		priceChange: "2.3",
+		marketCap: "1562723687",
+		twentyFourHrVolume: "108092000",
+		dataset: []
+	};
+	var coinName = $('#coin-input').val();
+	
+	let store = new Promise(function(resolve, reject){
+		if(coinName){
+			coinName = coinName.toUpperCase();
+
+			$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym='+ coinName +'&tsym=USD&limit=25', function(priceData){
+				for(i =0; i < 25; i++){
+		      		dataObj.dataset.push(priceData.Data[i].close); //fill coin dataset with latest price action from last 24 hours
+		   		}	
+			   	$.getJSON('https://min-api.cryptocompare.com/data/pricemultifull?fsyms='+ coinName +'&tsyms=USD', function(otherData){
+					dataObj.coinFullName = otherData.RAW[coinName].USD.FROMSYMBOL;
+					dataObj.coinName = otherData.RAW[coinName].USD.FROMSYMBOL;
+					dataObj.currentPrice = otherData.RAW[coinName].USD.PRICE;
+					dataObj.priceChange = otherData.RAW[coinName].USD.CHANGEPCT24HOUR;
+					dataObj.marketCap = otherData.RAW[coinName].USD.MKTCAP;
+					dataObj.twentyFourHrVolume = otherData.RAW[coinName].USD.VOLUME24HOURTO;
+	   				resolve('done');
+	   			});
+	   			
+	   		});
+		}
+	});
+	store.then(function(){
+
+
+		//At this point object 'dataObj' is ready for delivery to the DB
+
+		//WRITE THE REST OF THE CODE BELOW HERE:
+		//XMLHTTPREQUEST BLAH BLAH 
+		//SENDING IT OVER TO THE DB TO BE ADDED AS DOCUMENT BLAH BLAH
+		//...
+		//...
+		//...
+		//...
+		//DONE
+
+
+
+	});
+});          //function ends here
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
