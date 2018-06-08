@@ -1,35 +1,52 @@
-
 	var path = require('path');
 	var express = require('express');
 	var exphbs = require('express-handlebars');
 	var fs = require('fs');
 	var app = express();
-	var coinDataArray = require('./coinData');
+
+	var MongoClient = require('mongodb').MongoClient;
+	var mongoDBName = "cs290_kramerje";
+
+	var mongoURL = "mongodb://cs290_kramerje:cs290_kramerje@classmongo.engr.oregonstate.edu:27017/cs290_kramerje";
+	var mongoDBDatabase;
+
+
 	app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 	app.set('view engine', 'handlebars');
 
 	var port = process.env.PORT || 3000;
 	var info = [];
 	app.get('/', function (req, res) {
-	  res.status(200).render('index', {data: info}); //index: should you render create twit button
+	  res.status(200).render('index', {data: info});
 	});
 
 	app.use(express.static('public'));
 
-	app.get('/alts',function(req,res,next){
-		console.log("loading alt coins..");
+	app.get('/alts', function (req, res, next) {
+		var coinData = db.collection('coinData');
+		var coinCursor = coinData.find({});
 
-		res.status(200).render('coincaller', {
-			 coin_array: coinDataArray
-
-		});
-
+		coinCursor.toArray(function (err, coinDataArray) {
+			if (err) {
+				res.status(500).send("Error fetching coins from database.");
+			} else {
+				res.status(200).render('coincaller', {
+			 		coin_array: coinDataArray
+				});
+			}
+		})
 	});
 
 	app.get('*', function (req, res) {
-	  res.status(404).render('error');
+  		res.status(404).render('error');
 	});
 
-	app.listen(port, function () {
-	  console.log("Server is listening on port ", port);
+	MongoClient.connect(mongoURL, function (err, client) {
+		if (err) {
+			throw err;
+		}
+		db = mongoDBDatabase = client.db(mongoDBName);
+		app.listen(port, function () {
+	  	console.log("Server is listening on port ", port);
+		});
 	});
