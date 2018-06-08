@@ -481,18 +481,30 @@ $('#submit-coin-input').click(function(){
 
 		request.send(requestBody);
 
-
-
-
-
-
-
-
 	});
 });          //function ends here
-////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////// REPLACE NEW COINS WITH GENERIC PICTURE //////////////////////////////////////////////
+var coins = ["btc", "eth", "xrp", "icx", "req", "ven"];
+function replacePicture(){
+	var i, a, flag;
+	var coinImages = document.getElementsByClassName("coin-icon");
+	for(i= 0; i < coinImages.length; i++){
+		flag = 0;
+		for(a= 0; a < coins.length; a++){
+			if($(coinImages[i]).attr("src") === (coins[a] + ".png")){ //if its matching with AT LEAST one of the coins from the list (coins with supported pictures)
+				flag = 1;
+				break;
+			}
+		}
 
+		if(flag == 0){ // if match to certified coins was never found a.k.a. flag was never set
+			$(coinImages[i]).attr("src", "generic.png");
+		}
+
+	}
+}
+replacePicture(); //called everytime a page is opened
 
 
 
