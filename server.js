@@ -3,6 +3,7 @@
 	var exphbs = require('express-handlebars');
 	var fs = require('fs');
 	var app = express();
+	var bodyParser = require('body-parser');
 
 	var MongoClient = require('mongodb').MongoClient;
 	var mongoDBName = "cs290_kramerje";
@@ -22,6 +23,8 @@
 
 	app.use(express.static('public'));
 
+	app.use(bodyParser.json());
+
 	app.get('/alts', function (req, res, next) {
 		var coinData = db.collection('coinData');
 		var coinCursor = coinData.find({});
@@ -39,6 +42,26 @@
 
 	app.get('/addCoin', function (req, res, next) {
 		res.status(200).render('addCoin', {data: blank});
+	});
+
+	app.post('/addCoin', function (req, res) {
+
+		console.log("req.body", req.body);
+		var coinCollection = db.collection('coinData');
+		coinCollection.insertOne(
+			{
+
+				coinFullName: req.body.coinFullName,
+			   coinName: req.body.coinName,
+			   currentPrice: req.body.currentPrice,
+			   priceChange: req.body.priceChange,
+			   marketCap: req.body.marketCap,
+			   twentyFourHrVolume: req.body.twentyFourHrVolume,
+			   dataset: req.body.dataset
+
+			}
+
+		);
 	});
 
 	app.get('*', function (req, res) {
