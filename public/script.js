@@ -92,7 +92,7 @@ if(btc){
 }
 ////
 //////////////////////// E T H E R E U M ////////////////////////////////////////////////////////////////
-if(eth){	
+if(eth){
 	var coinName = "ETH"; //test to see if templated API works
 	$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym=' + coinName + '&tsym=USD&limit=25', function(eth24Hour){
 	    for(i =0; i < hoursPerDay+1; i++){
@@ -355,7 +355,7 @@ function btc_star_clicked(){
      eth_child[0].classList.add('far');
      eth_child[0].classList.remove('clicked');
    }
- }		
+ }
  	if(document.getElementById("btcChart")){
  		document.getElementById("eth-star").onclick = eth_star_clicked;
  	}
@@ -432,7 +432,7 @@ $('#submit-coin-input').click(function(){
 		dataset: []
 	};
 	var coinName = $('#coin-input').val();
-	
+
 	let store = new Promise(function(resolve, reject){
 		if(coinName){
 			coinName = coinName.toUpperCase();
@@ -440,7 +440,7 @@ $('#submit-coin-input').click(function(){
 			$.getJSON('https://min-api.cryptocompare.com/data/histohour?fsym='+ coinName +'&tsym=USD&limit=25', function(priceData){
 				for(i =0; i < 25; i++){
 		      		dataObj.dataset.push(priceData.Data[i].close); //fill coin dataset with latest price action from last 24 hours
-		   		}	
+		   		}
 			   	$.getJSON('https://min-api.cryptocompare.com/data/pricemultifull?fsyms='+ coinName +'&tsyms=USD', function(otherData){
 					dataObj.coinFullName = otherData.RAW[coinName].USD.FROMSYMBOL;
 					dataObj.coinName = otherData.RAW[coinName].USD.FROMSYMBOL;
@@ -450,26 +450,36 @@ $('#submit-coin-input').click(function(){
 					dataObj.twentyFourHrVolume = otherData.RAW[coinName].USD.VOLUME24HOURTO;
 	   				resolve('done');
 	   			});
-	   			
+
 	   		});
 		}
 	});
 	store.then(function(){
-		alert("Coin successfully added!"); //
-		
+		$('#coin-input').val("");
+
 		//At this point object 'dataObj' is ready for delivery to the DB
 
 		//WRITE THE REST OF THE CODE BELOW HERE:
-		//XMLHTTPREQUEST BLAH BLAH 
-		//SENDING IT OVER TO THE DB TO BE ADDED AS DOCUMENT BLAH BLAH
-		//...
-		//...
-		//...
-		//...
-		//DONE
 
+		// function storeCoinInDB(dataObj.coinFullName, dataObj.coinName, dataObj.currentPrice, dataObj.priceChange, dataObj.marketCap, dataObj.twentyFourHrVolume) {
+		var request = new XMLHttpRequest();
+		var requestURL = '/addCoin';
+		request.open('POST', requestURL);
 
+		var requestBody = JSON.stringify(dataObj);
 
+		request.setRequestHeader(
+			'Content-Type', 'application/json'
+		);
+
+		request.addEventListener('load', function (events) {
+			if (event.target.status !== 200) {
+				var message = event.target.response;
+				alert("Error storing coin in database" + message);
+			}
+		});
+
+		request.send(requestBody);
 
 
 
@@ -517,4 +527,3 @@ $('#submit-coin-input').click(function(){
 
 
 }/////DOCUMENT READY FUNCTION END
-
