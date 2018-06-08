@@ -420,6 +420,7 @@ $('#nav3').click(function(){
 //////////////////HANDLE ADD COIN//////////////////////////////////////////////////
 
 $('#submit-coin-input').click(function(){
+	$
 	var i;
 	var dataObj = {          //THIS IS THE OBJECT THAT WILL BE SENT TO SERVER
 		coinFullName: "Ethereum Classic",
@@ -454,8 +455,8 @@ $('#submit-coin-input').click(function(){
 		}
 	});
 	store.then(function(){
-
-
+		alert("Coin successfully added!"); //
+		
 		//At this point object 'dataObj' is ready for delivery to the DB
 
 		//WRITE THE REST OF THE CODE BELOW HERE:
@@ -466,6 +467,14 @@ $('#submit-coin-input').click(function(){
 		//...
 		//...
 		//DONE
+
+
+
+
+
+
+
+
 
 
 

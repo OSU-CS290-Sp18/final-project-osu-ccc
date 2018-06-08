@@ -348,3 +348,34 @@ a:visited,  a:link {
 	  font-size: 46px;
 	  font-weight: 400;
 	}
+
+
+#addCoin{
+	position: relative;
+	left: 35%;
+	top: 35px;
+}
+	#explain{
+
+	}
+
+		#coin-input{
+			position: relative;
+			top: 30px;
+			left: 18%;
+			width: 250px;
+			font-size: 23.6px;
+			padding-left: 5px;
+		}
+		#submit-coin-input{
+			position: relative;
+			right: .6%;
+			left: 17.15%;
+			top: 29px;
+			font-family: 'Roboto Slab';
+			font-style: bold;
+			font-size: 20px;
+			height: 34.6px;
+			border: 1px solid rgba(0, 0, 255, .8);
+			background-color: rgba(48, 162, 255, .3);
+		}	
