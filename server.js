@@ -45,12 +45,8 @@
 	});
 
 	app.post('/addCoin', function (req, res) {
-
-		console.log("req.body", req.body);
 		var coinCollection = db.collection('coinData');
-		coinCollection.insertOne(
-			{
-
+		coinCollection.insertOne( {
 				coinFullName: req.body.coinFullName,
 			   coinName: req.body.coinName,
 			   currentPrice: req.body.currentPrice,
@@ -58,9 +54,7 @@
 			   marketCap: req.body.marketCap,
 			   twentyFourHrVolume: req.body.twentyFourHrVolume,
 			   dataset: req.body.dataset
-
 			}
-
 		);
 	});
 
